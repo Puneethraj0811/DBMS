@@ -85,7 +85,7 @@ mysql> desc book;
 
 mysql> insert into book values("BK1","DBMS","A1","PEARSON","b1");
 mysql> insert into book values("BK2","Research Methodology","A2","PEARSON","b2");
-mysql> insert into book values("BK3","Data Structure","A3","MC Graw Hill");
+mysql> insert into book values("BK3","Data Structure","A3","MC Graw Hill","b3");
 mysql> insert into book values("BK4","Artificial Intelligence","A4","MC Graw Hill","b4");
 mysql> insert into book values("BK5","Thermo Dynamics","A5","Taylor","b5");
 
