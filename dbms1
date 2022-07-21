@@ -16,13 +16,6 @@ mysql> desc branch;
 | branchname | varchar(30) | NO   |     | NULL    |       |
 | hod        | varchar(30) | NO   |     | NULL    |       |
 +------------+-------------+------+-----+---------+-------+
-
-mysql> create table student(usn varchar(10) primary key not null,
-    -> name varchar(30) not null,
-    -> address varchar(50) not null,
-    -> branchid varchar(20),foreign key (branchid) references branch(branchid),
-    -> sem varchar(5) not null);
-
 mysql> insert into branch values("b1","MCA","Dr.Vandana");
 mysql> insert into branch values("b2","MBA","Dr.Iyer");
 mysql> insert into branch values("b3","CS","Dr.Krishna Mohan");
@@ -39,6 +32,12 @@ mysql> select *from branch;
 | b4       | Mech       | Dr.Manjunath     |
 | b5       | Civil      | Dr.Anand         |
 +----------+------------+------------------+
+
+mysql> create table student(usn varchar(10) primary key not null,
+    -> name varchar(30) not null,
+    -> address varchar(50) not null,
+    -> branchid varchar(20),foreign key (branchid) references branch(branchid),
+    -> sem varchar(5) not null);
 
 mysql> desc student;
 +----------+-------------+------+-----+---------+-------+
