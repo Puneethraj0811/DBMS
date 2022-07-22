@@ -1,0 +1,94 @@
+mysql> create table team(TID varchar(10) primary key not null,
+    -> TNAME varchar(30) not null,
+    -> COACH varchar(40) not null,
+    -> CAPTAIN_ID varchar(10) not null,
+    -> CITY varchar(30) not null);
+
+mysql> desc team;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| TID        | varchar(10) | NO   | PRI | NULL    |       |
+| TNAME      | varchar(30) | NO   |     | NULL    |       |
+| COACH      | varchar(40) | NO   |     | NULL    |       |
+| CAPTAIN_ID | varchar(10) | NO   |     | NULL    |       |
+| CITY       | varchar(30) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+alter table team add foreign key(CAPTAIN_ID) references player(PID);
+
+mysql> desc team;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| TID        | varchar(10) | NO   | PRI | NULL    |       |
+| TNAME      | varchar(30) | NO   |     | NULL    |       |
+| COACH      | varchar(40) | NO   |     | NULL    |       |
+| CAPTAIN_ID | varchar(10) | NO   | MUL | NULL    |       |
+| CITY       | varchar(30) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+mysql> create table player(PID varchar(10) primary key not null,
+    -> PNAME varchar(30) not null,
+    -> AGE int(2) not null,
+    -> TID varchar(10),foreign key(TID)references team(TID));
+
+mysql> desc player;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| PID   | varchar(10) | NO   | PRI | NULL    |       |
+| PNAME | varchar(30) | NO   |     | NULL    |       |
+| AGE   | int         | NO   |     | NULL    |       |
+| TID   | varchar(10) | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+mysql> create table stadium(SID varchar(10) primary key not null,
+    -> SNAME varchar(30) not null,
+    -> PINCODE int(6) not null,
+    -> CITY varchar(20) not null,
+    -> AREA varchar(20) not null);
+
+mysql> desc stadium;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| SID     | varchar(10) | NO   | PRI | NULL    |       |
+| SNAME   | varchar(30) | NO   |     | NULL    |       |
+| PINCODE | int         | NO   |     | NULL    |       |
+| CITY    | varchar(20) | NO   |     | NULL    |       |
+| AREA    | varchar(20) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> create table matches(MID varchar(10) primary key not null,
+    -> MDATE date,
+    -> TIME time,
+    -> SID varchar(10),foreign key(SID)references stadium(SID),
+    -> TEAM1_ID varchar(10),foreign key(TEAM1_ID)references team(TID),TEAM2_ID varchar(10),foreign key(TEAM2_ID)references team(TID),
+    -> WINNING_TEAM_ID varchar(10),foreign key(WINNING_TEAM_ID)references team(TID),
+    -> MAN_OF_MATCH varchar(20),foreign key(MAN_OF_MATCH)references player(PID));
+
+mysql> desc matches;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| MID             | varchar(10) | NO   | PRI | NULL    |       |
+| MDATE           | date        | YES  |     | NULL    |       |
+| TIME            | time        | YES  |     | NULL    |       |
+| SID             | varchar(10) | YES  | MUL | NULL    |       |
+| TEAM1_ID        | varchar(10) | YES  | MUL | NULL    |       |
+| TEAM2_ID        | varchar(10) | YES  | MUL | NULL    |       |
+| WINNING_TEAM_ID | varchar(10) | YES  | MUL | NULL    |       |
+| MAN_OF_MATCH    | varchar(20) | YES  | MUL | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+mysql> create table player_phone(PID varchar(10),foreign key(PID)references player(PID),
+    -> phone varchar(10) primary key not null);
+
+mysql> desc player_phone;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| PID   | varchar(10) | YES  | MUL | NULL    |       |
+| phone | varchar(10) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
